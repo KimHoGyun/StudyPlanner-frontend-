@@ -1,11 +1,11 @@
 {
-    "name": "forstudy",
-    "short_name": "forstudy",
+    "name": "Study Planner",
+    "short_name": "StudyPlan",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFFFFF",
+    "theme_color": "#2196F3",
+    "description": "스터디 그룹 관리 및 출석 체크 앱",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

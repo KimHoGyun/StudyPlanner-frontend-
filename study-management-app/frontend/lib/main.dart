@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'config/api_config.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,17 +38,13 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isSignup = false;
   bool _isLoading = false;
 
-  // 백엔드 URL (로컬 개발용)
-  // 배포 시에는 실제 백엔드 URL로 변경 필요
-  static const String baseUrl = 'http://localhost:8080';
-
   Future<void> _handleSubmit() async {
     setState(() {
       _isLoading = true;
     });
 
     try {
-      final endpoint = _isSignup ? '/api/auth/signup' : '/api/auth/login';
+      final endpoint = _isSignup ? ApiConfig.signup : ApiConfig.login;
       final body = _isSignup
           ? {
         'email': _emailController.text,
@@ -60,8 +57,8 @@ class _LoginScreenState extends State<LoginScreen> {
       };
 
       final response = await http.post(
-        Uri.parse('$baseUrl$endpoint'),
-        headers: {'Content-Type': 'application/json'},
+        Uri.parse('${ApiConfig.baseUrl}$endpoint'),
+        headers: ApiConfig.getHeaders(),
         body: jsonEncode(body),
       );
 
@@ -289,7 +286,8 @@ class _StudyGroupsPageState extends State<StudyGroupsPage> {
   Future<void> _loadStudyGroups() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:8080/api/study-groups'),
+        Uri.parse('${ApiConfig.baseUrl}${ApiConfig.studyGroups}'),
+        headers: ApiConfig.getHeaders(),
       );
 
       if (response.statusCode == 200) {
